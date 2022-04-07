@@ -15,9 +15,13 @@ const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
     text-decoration: none;
-    width: 72px;
+    width: 75px;
     margin-right: 0.5rem;
     color: #2c3e50;
+    font-weight: bold;
+    :hover {
+      text-decoration: underline;
+    }
     svg {
       font-size: large;
     }
