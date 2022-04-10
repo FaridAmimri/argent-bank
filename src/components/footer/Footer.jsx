@@ -11,7 +11,7 @@ function Footer() {
   return (
     <footer>
       <FooterContent className="footer-content">
-        <span class="footer-text">Copyright 2020 Argent Bank</span>
+        <span className="footer-text">Copyright 2020 Argent Bank</span>
       </FooterContent>
     </footer>
   )
