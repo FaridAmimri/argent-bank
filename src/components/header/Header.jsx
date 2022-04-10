@@ -1,6 +1,7 @@
-import ArgentBankLogo from './assets/argentBankLogo.png'
+// import { NavLink } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import styled from 'styled-components'
+import ArgentBankLogo from './assets/argentBankLogo.png'
 
 const Nav = styled.nav`
   display: flex;
@@ -11,7 +12,7 @@ const Nav = styled.nav`
     max-width: 100%;
     width: 200px;
   }
-  .nav-sign {
+  .login {
     display: flex;
     justify-content: space-between;
     text-decoration: none;
@@ -35,7 +36,7 @@ function Header() {
         <a className="nav-logo" href="/">
           <img src={ArgentBankLogo} alt="Argent Bank Logo"></img>
         </a>
-        <a className="nav-sign" href="/">
+        <a className="login" href="/login">
           <FaUserCircle /> Sign In
         </a>
       </Nav>
