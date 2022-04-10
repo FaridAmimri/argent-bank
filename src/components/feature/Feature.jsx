@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-const Item = styled.div`
+const FeatureItem = styled.div`
   flex: 1;
   padding: 2.5rem;
   .feature-icon {
@@ -21,16 +21,16 @@ const Item = styled.div`
 Feature.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.string,
 }
 
 function Feature({ image, title, children }) {
   return (
-    <Item class="feature-item">
+    <FeatureItem className="feature-item">
       <img src={image} alt="Icon" class="feature-icon" />
       <h3 class="feature-title">{title}</h3>
       <p>{children}</p>
-    </Item>
+    </FeatureItem>
   )
 }
 
