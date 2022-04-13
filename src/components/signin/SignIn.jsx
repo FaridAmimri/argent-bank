@@ -1,9 +1,8 @@
+import { useRef } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import styled from 'styled-components'
 
 const SignInWrapper = styled.section`
-  background-color: #12002b;
-  flex: 1;
   padding: 3rem 0 2rem 0;
 `
 
@@ -32,6 +31,9 @@ const SignInContent = styled.div`
       margin-left: 0.25rem;
     }
   }
+  .button {
+    text-decoration-line: none;
+  }
 `
 
 const SignInButton = styled.button`
@@ -48,19 +50,28 @@ const SignInButton = styled.button`
 `
 
 function SignIn() {
+  const registerEmail = useRef()
+  const registerPassword = useRef()
+
+  const handleRegister = (e) => {
+    e.preventDefault()
+
+    console.log(registerEmail.current.value, registerPassword.current.value)
+  }
+
   return (
-    <SignInWrapper className="sign-in-container">
+    <SignInWrapper className="sign-in-wrapper">
       <SignInContent className="sign-in-content">
         <FaUserCircle />
         <h1>Sign In</h1>
-        <form>
+        <form onSubmit={(e) => handleRegister(e)}>
           <div className="input-wrapper">
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <label htmlFor="email">Email</label>
+            <input type="text" id="email" ref={registerEmail} />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+            <input type="password" id="password" ref={registerPassword} />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
