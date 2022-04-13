@@ -1,11 +1,11 @@
 import Banner from '../components/banner/Banner'
-import Features from '../components/features/Features'
+import Transactions from '../components/transactions/Transactions'
 
 function Home() {
   return (
     <main>
       <Banner />
-      <Features />
+      <Transactions />
     </main>
   )
 }
