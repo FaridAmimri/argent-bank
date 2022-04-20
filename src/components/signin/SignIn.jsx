@@ -1,6 +1,59 @@
-import { useRef } from 'react'
+import { useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { loginUser } from '../../services'
+import { updateToken } from '../../features/userSlice'
+
+function SignIn() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const result = await loginUser({ email, password })
+    const token = result.data.body.token
+    dispatch(updateToken({ token }))
+  }
+
+  return (
+    <SignInWrapper className="sign-in-wrapper">
+      <SignInContent className="sign-in-content">
+        <FaUserCircle />
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+          </div>
+          <div className="input-remember">
+            <input type="checkbox" id="remember-me" />
+            <label htmlFor="remember-me">Remember me</label>
+          </div>
+          <SignInButton className="sign-in-button">Sign In</SignInButton>
+        </form>
+      </SignInContent>
+    </SignInWrapper>
+  )
+}
+
+export default SignIn
 
 const SignInWrapper = styled.section`
   padding: 3rem 0 2rem 0;
@@ -48,40 +101,3 @@ const SignInButton = styled.button`
   color: #fff;
   border: transparent;
 `
-
-function SignIn() {
-  const registerEmail = useRef()
-  const registerPassword = useRef()
-
-  const handleRegister = (e) => {
-    e.preventDefault()
-
-    console.log(registerEmail.current.value, registerPassword.current.value)
-  }
-
-  return (
-    <SignInWrapper className="sign-in-wrapper">
-      <SignInContent className="sign-in-content">
-        <FaUserCircle />
-        <h1>Sign In</h1>
-        <form onSubmit={(e) => handleRegister(e)}>
-          <div className="input-wrapper">
-            <label htmlFor="email">Email</label>
-            <input type="text" id="email" ref={registerEmail} />
-          </div>
-          <div className="input-wrapper">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" ref={registerPassword} />
-          </div>
-          <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
-            <label htmlFor="remember-me">Remember me</label>
-          </div>
-          <SignInButton className="sign-in-button">Sign In</SignInButton>
-        </form>
-      </SignInContent>
-    </SignInWrapper>
-  )
-}
-
-export default SignIn
