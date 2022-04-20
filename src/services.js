@@ -1,19 +1,13 @@
-export const Service = {
-  postLogin: function (email, password) {
-    return fetch('http://localhost:3001/api/v1/user/login', {
-      method: 'POST',
-      body: {
-        email: email,
-        password: password,
-      },
+import axios from 'axios'
+
+export const loginUser = ({ email, password }) => {
+  return axios
+    .post('http://localhost:3001/api/v1/user/login', {
+      email,
+      password,
     })
-  },
-  getToken: function (token) {
-    return fetch('http://localhost:3001/api/v1/user/profile', {
-      method: 'GET',
-      body: {
-        token: token,
-      },
+    .catch(function (error) {
+      console.log(error)
     })
-  },
 }
+
