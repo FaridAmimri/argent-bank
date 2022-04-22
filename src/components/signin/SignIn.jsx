@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { FaUserCircle } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { loginUser } from '../../services'
+import { FaUserCircle } from 'react-icons/fa'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { getUserLogin } from '../../services'
 import { updateToken } from '../../features/userSlice'
 
 function SignIn() {
@@ -10,12 +11,14 @@ function SignIn() {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const result = await loginUser({ email, password })
+    const result = await getUserLogin({ email, password })
     const token = result.data.body.token
     dispatch(updateToken({ token }))
+    navigate('/dashbord')
   }
 
   return (
