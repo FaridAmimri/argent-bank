@@ -1,8 +1,48 @@
-import { useState } from 'react'
-import { FaUserCircle } from 'react-icons/fa'
-import { FaSignOutAlt } from 'react-icons/fa'
 import styled from 'styled-components'
 import ArgentBankLogo from './assets/argentBankLogo.png'
+import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout, userSelector } from '../../features/userSlice'
+
+function Header() {
+  const user = useSelector(userSelector)
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    dispatch(logout())
+  }
+
+  return (
+    <header>
+      <Nav className="navigation">
+        <NavLink className="nav-logo" to="/">
+          <img src={ArgentBankLogo} alt="Argent Bank Logo"></img>
+        </NavLink>
+
+        {!user.token && (
+          <NavLink className="login" to="/login">
+            <FaUserCircle /> Sign In
+          </NavLink>
+        )}
+
+        {user.token && (
+          <div className="sign-in-out">
+            <NavLink className="sign-in" to="/dashbord">
+              <FaUserCircle /> {user.firstName}
+            </NavLink>
+
+            <NavLink className="sign-out" to="/" onClick={handleLogout}>
+              <FaSignOutAlt /> Sign Out
+            </NavLink>
+          </div>
+        )}
+      </Nav>
+    </header>
+  )
+}
+
+export default Header
 
 const Nav = styled.nav`
   display: flex;
@@ -43,32 +83,3 @@ const Nav = styled.nav`
     }
   }
 `
-
-function Header() {
-  const [signIn, setSignIn] = useState(false)
-
-  return (
-    <header>
-      <Nav className="navigation">
-        <a className="nav-logo" href="/">
-          <img src={ArgentBankLogo} alt="Argent Bank Logo"></img>
-        </a>
-
-        <a className="login" href="/login" onClick={() => setSignIn(true)}>
-          <FaUserCircle /> Sign In
-        </a>
-
-        <div className="sign-in-out">
-          <a className="sign-in" href="/user">
-            <FaUserCircle /> Tony
-          </a>
-          <a className="sign-out" href="/" onClick={() => setSignIn(true)}>
-            <FaSignOutAlt /> Sign Out
-          </a>
-        </div>
-      </Nav>
-    </header>
-  )
-}
-
-export default Header
