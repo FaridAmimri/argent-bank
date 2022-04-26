@@ -27,3 +27,24 @@ export const getUserProfile = ({ token }) => {
     })
     .catch((error) => console.log(error))
 }
+
+export const updateUserProfile = ({ token, firstName, lastName }) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  }
+
+  const data = {
+    body: {
+      firstName: firstName,
+      lastName: lastName,
+    }
+  }
+
+  return axios
+    .put('http://localhost:3001/api/v1/user/profile',
+      data,
+      config
+    )
+    .then((req) => console.log(req))
+    .catch((error) => console.log(error))
+}
