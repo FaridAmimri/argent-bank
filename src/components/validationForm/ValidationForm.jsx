@@ -5,7 +5,7 @@ function ValidationForm(values) {
     errors.email = 'Email is invalid'
   }
   if (values.password.length < 10) {
-    errors.password = ' Password is invalid'
+    errors.password = 'Password is invalid'
   }
   return errors
 }
