@@ -1,0 +1,70 @@
+swagger: "2.0"
+
+info:
+  description: "This is a sample server for transactions in Bank Argent Project."
+  version: "1.0.0"
+  title: "Bank Argent API documentation"
+  termsOfService: "http://swagger.io/terms/"
+host: "localhost:3001/api/v2"
+basePath: "/v2"
+
+tags:
+- name: "transactions"
+  description: "All transactions about on your bank account"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+paths:
+  /transactions:
+    get:
+      tags:
+      - "transactions"
+      summary: "read all transactions"
+      description: ""
+      operationId: "getTransations"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Transactions object that needs to be read"
+        required: true
+        schema:
+          $ref: "#/definitions/Transactions"
+      responses:
+        "200":
+          description: "successful operation"
+      security:
+      - usertransactions_auth:
+        - "token"
+
+tags:
+- name: "transaction/id"
+  description: "Handle details about one transaction"
+paths:
+  /transactions:
+    get:
+      tags:
+      - "transactions/id"
+      summary: "read details about one transaction"
+      description: ""
+      operationId: "getTransation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Transaction details object that needs to be read"
+        required: true
+        schema:
+          $ref: "#/definitions/Transaction"
+      responses:
+        "200":
+          description: "successful operation"
+      security:
+       - usertransactions_auth:
+        - "token"
