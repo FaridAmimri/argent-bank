@@ -8,26 +8,27 @@ export const userSlice = createSlice({
     firstName: '',
     lastName: '',
     token: null,
-    isFetching: false,
-    isSuccess: false,
-    isFail: false,
-    errorMessage: '',
+    isLoading: true,
   },
   reducers: {
     updateToken(state, action) {
       state.token = action.payload.token
     },
-    updateUser(state, action) {
+    displayUser(state, action) {
       state.firstName = action.payload.firstName
       state.lastName = action.payload.lastName
     },
     logout(state) {
       state.token = null
+      localStorage.removeItem('token')
+    },
+    disableLoader(state) {
+      state.isLoading = false
     }
   },
 })
 
-export const { updateToken, updateUser, logout } = userSlice.actions
+export const { updateToken, displayUser, logout, disableLoader } = userSlice.actions
 
 export const userSelector = (state) => state.user
 
