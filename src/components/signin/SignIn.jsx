@@ -1,24 +1,59 @@
 import styled from 'styled-components'
 import { FaUserCircle } from 'react-icons/fa'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getUserLogin } from '../../services'
-import { updateToken } from '../../features/userSlice'
+import { userSelector, updateToken } from '../../features/userSlice'
+import ValidationForm from '../validationForm/ValidationForm'
 
 function SignIn() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+  })
+
+  const [errors, setErrors] = useState({})
+  const checkBoxRef = useRef();
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  // const user = useSelector(userSelector)
+  // const token = user.token
+
+  // useEffect(() => {
+  //   if (checked) {
+  //     window.localStorage.setItem('token', token)
+  //     console.log(token);
+  //     // navigate('/dashbord')
+  //     // console.log(checked)
+  //   }
+  // }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const result = await getUserLogin({ email, password })
+    setErrors(ValidationForm(values))
+    const result = await getUserLogin({
+      email: values.email,
+      password: values.password,
+    })
     const token = result.data.body.token
+    const status = result.data.status
+    console.log(status)
     dispatch(updateToken({ token }))
+    if (checkBoxRef.current.checked) {
+      localStorage.setItem('token', token)
+    }
+    
     navigate('/dashbord')
+  }
+
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    })
   }
 
   return (
@@ -32,21 +67,26 @@ function SignIn() {
             <input
               type="text"
               id="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              name="email"
+              onChange={handleChange}
+              required
             />
           </div>
+          {errors.email && <p className="errors">{errors.email}</p>}
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
+              name="password"
+              onChange={handleChange}
+              required
             />
           </div>
+          {errors.password && <p className="errors">{errors.password}</p>}
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            {/* <input type="checkbox" id="remember-me" onClick={handleClick} /> */}
+            <input ref={checkBoxRef} type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <SignInButton className="sign-in-button">Sign In</SignInButton>
@@ -86,6 +126,9 @@ const SignInContent = styled.div`
     label {
       margin-left: 0.25rem;
     }
+  }
+  .errors {
+    color: red;
   }
   .button {
     text-decoration-line: none;
