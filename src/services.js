@@ -11,7 +11,7 @@ export const getUserLogin = ({ email, password }) => {
 
 export const getUserProfile = ({ token }) => {
   const config = {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer` + token },
   }
 
   const bodyParameters = {
@@ -34,17 +34,12 @@ export const updateUserProfile = ({ token, firstName, lastName }) => {
   }
 
   const data = {
-    body: {
-      firstName: firstName,
-      lastName: lastName,
-    }
+    firstName: firstName,
+    lastName: lastName,
   }
 
   return axios
-    .put('http://localhost:3001/api/v1/user/profile',
-      data,
-      config
-    )
+    .put('http://localhost:3001/api/v1/user/profile', data, config)
     .then((req) => console.log(req))
     .catch((error) => console.log(error))
 }
