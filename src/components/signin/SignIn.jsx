@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import { FaUserCircle } from 'react-icons/fa'
-import { useState, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getUserLogin } from '../../services'
-import { userSelector, updateToken } from '../../features/userSlice'
+import { updateToken } from '../../features/userSlice'
 import ValidationForm from '../validationForm/ValidationForm'
 
 function SignIn() {
@@ -12,24 +12,11 @@ function SignIn() {
     email: '',
     password: '',
   })
-
   const [errors, setErrors] = useState({})
-  const checkBoxRef = useRef();
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  // const user = useSelector(userSelector)
-  // const token = user.token
-
-  // useEffect(() => {
-  //   if (checked) {
-  //     window.localStorage.setItem('token', token)
-  //     console.log(token);
-  //     // navigate('/dashbord')
-  //     // console.log(checked)
-  //   }
-  // }, [])
+  const checkBoxRef = useRef()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -39,13 +26,10 @@ function SignIn() {
       password: values.password,
     })
     const token = result.data.body.token
-    const status = result.data.status
-    console.log(status)
     dispatch(updateToken({ token }))
     if (checkBoxRef.current.checked) {
       localStorage.setItem('token', token)
     }
-    
     navigate('/dashbord')
   }
 
