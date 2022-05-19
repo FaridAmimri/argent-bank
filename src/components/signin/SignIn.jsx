@@ -8,6 +8,7 @@ import { updateToken } from '../../features/userSlice'
 import ValidationForm from '../validationForm/ValidationForm'
 
 function SignIn() {
+  
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -69,7 +70,6 @@ function SignIn() {
           </div>
           {errors.password && <p className="errors">{errors.password}</p>}
           <div className="input-remember">
-            {/* <input type="checkbox" id="remember-me" onClick={handleClick} /> */}
             <input ref={checkBoxRef} type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
