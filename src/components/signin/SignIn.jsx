@@ -31,7 +31,7 @@ function SignIn() {
     if (checkBoxRef.current.checked) {
       localStorage.setItem('token', token)
     }
-    navigate('/dashbord')
+    navigate('/profile')
   }
 
   const handleChange = (e) => {

@@ -28,7 +28,7 @@ function Header() {
 
         {user.token && (
           <div className="sign-in-out">
-            <NavLink className="sign-in" to="/dashbord">
+            <NavLink className="sign-in" to="/profile">
               <FaUserCircle /> {user.firstName}
             </NavLink>
 

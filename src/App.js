@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route
-            path="/dashbord"
+            path="/profile"
             element={
               <PrivateRoute>
                 <Dashboard />
