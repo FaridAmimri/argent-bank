@@ -1,6 +1,5 @@
 {
   "name": "argentbank",
-  "homepage": "http://faridamimri.github.io/P13-ArgentBank",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
